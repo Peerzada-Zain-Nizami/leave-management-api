@@ -136,9 +136,9 @@ class UserModelTest extends TestCase
      */
     public function test_default_role_is_general(): void
     {
-        $user = User::factory()->create(['role' => null]);
-        // Factory will use default from migration
-        $this->assertContains($user->role, ['general', 'admin', 'hr']);
+        $user = User::factory()->create();
+        // Factory defaults to general
+        $this->assertEquals('general', $user->role);
     }
 
     /**

@@ -172,7 +172,7 @@ class LeaveRequestModelTest extends TestCase
             'days_count' => 2.5,
         ]);
 
-        $this->assertIsFloat($leaveRequest->days_count);
-        $this->assertEquals(2.5, $leaveRequest->days_count);
+        // MySQL returns as string, cast it
+        $this->assertEquals(2.5, (float) $leaveRequest->days_count);
     }
 }

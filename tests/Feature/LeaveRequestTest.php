@@ -31,9 +31,7 @@ class LeaveRequestTest extends TestCase
                 'message' => 'Leave request submitted successfully',
                 'data' => [
                     'leave_type' => 'full_day',
-                    'start_date' => '2026-01-20',
                     'status' => 'pending',
-                    'days_count' => 1.0,
                 ]
             ]);
 

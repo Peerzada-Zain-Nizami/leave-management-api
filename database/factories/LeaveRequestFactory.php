@@ -21,22 +21,20 @@ class LeaveRequestFactory extends Factory
     public function definition(): array
     {
         $leaveType = fake()->randomElement(['full_day', 'half_day', 'multi_day']);
-        $startDate = fake()->dateTimeBetween('now', '+30 days');
+        $startDate = \Carbon\Carbon::now()->addDays(fake()->numberBetween(1, 30));
         
         // Calculate end date and days count based on leave type
         if ($leaveType === 'half_day') {
-            $endDate = $startDate;
+            $endDate = $startDate->copy();
             $daysCount = 0.5;
             $halfDayPeriod = fake()->randomElement(['first_half', 'second_half']);
         } elseif ($leaveType === 'full_day') {
-            $endDate = $startDate;
+            $endDate = $startDate->copy();
             $daysCount = 1.0;
             $halfDayPeriod = null;
         } else { // multi_day
-            $endDate = fake()->dateTimeBetween($startDate, '+7 days');
-            $start = \Carbon\Carbon::instance($startDate);
-            $end = \Carbon\Carbon::instance($endDate);
-            $daysCount = $start->diffInDays($end) + 1;
+            $endDate = $startDate->copy()->addDays(fake()->numberBetween(1, 7));
+            $daysCount = $startDate->diffInDays($endDate) + 1;
             $halfDayPeriod = null;
         }
 

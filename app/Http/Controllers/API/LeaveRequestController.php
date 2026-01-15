@@ -181,6 +181,15 @@ class LeaveRequestController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
+        
+        // Validate: General users cannot use user_id filter
+        if ($user->isGeneral() && $request->has('user_id')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You are not authorized to filter by user_id'
+            ], 403);
+        }
+        
         $query = LeaveRequest::with('user', 'approver');
         
         // General users can only see their own leave requests

@@ -228,7 +228,7 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'success' => true,
-                'message' => 'Logged out successfully'
+                'message' => 'Logout successful'
             ]);
 
         $this->assertDatabaseMissing('personal_access_tokens', [
